@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -212,7 +212,47 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <h3 id="hdfs架构">HDFS架构</h3>
+<h4 id="namenode-主">Namenode:  主</h4>
+<blockquote>
+<p>存储: 文件系统的命名空间<br>
+a.文件的名称<br>
+b.文件的目录结构<br>
+c.文件的属性  权限 创建时间 副本数<br>
+d.文件对应被切割为哪些数据块+副本数–》数据块分布在哪些DN节点上<br>
+blockmap 当然nn节点不会持久化存储这种映射关系，<br>
+是通过集群启动和运行是，dn会定期发送blockreport给nn，<br>
+依次nn在内存中动态维护这种映射关系</p>
+</blockquote>
+<blockquote>
+<p>作用:<br>
+管理文件系统的命名空间。维护文件系统树的所有文件和文件夹。<br>
+这些信息以两个文件形式永久的保存在本地磁盘上：<br>
+镜像文件fsimage<br>
+编辑日志文件editlog</p>
+</blockquote>
+<h4 id="datanode从">Datanode：从</h4>
+<blockquote>
+<p>存储: 数据块 和 数据块校验和与NN通信:<br>
+	a.每隔3s发送心跳包给 nn，我还活者<br>
+	dfs.heartbeat.interval 3<br>
+	b.每隔一定的时间发生一次 blockreport<br>
+	dfs.blockreport.intervalMsec  21600000ms=6h<br>
+	dfs.datanode.directoryscan.interval 21600s=6h</p>
+</blockquote>
+<h4 id="secondarynamenode">SecondaryNamenode</h4>
+<blockquote>
+<p>存储: fsimage+editlog<br>
+作用: 定期合并 fsimage+editlog文件作为新的fsimage，推送给NN，<br>
+简称为checkpoint 检查点<br>
+1.roll edit<br>
+2.传输 fsimage+edits<br>
+3.merge 合并<br>
+4.传输 fsimage.ckpt to nn<br>
+5.回滚 fsimage.ckpt==》fsimage<br>
+edit.new==&gt;  edit</p>
+</blockquote>
+
                 
 
                 <hr>
@@ -271,7 +311,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#hdfs架构"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">HDFS&#x67B6;&#x6784;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#namenode-主"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Namenode:  &#x4E3B;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#datanode从"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Datanode&#xFF1A;&#x4ECE;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#secondarynamenode"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">SecondaryNamenode</span></a></li></ol></li></ol>
         
         </div>
       </aside>

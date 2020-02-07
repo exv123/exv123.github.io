@@ -71,7 +71,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/head.png') 
+            background-image: url('/img/article_header/article_bg.png') 
             /*config*/
         
     }
@@ -134,14 +134,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -211,6 +211,96 @@
 
 <div class="post-preview">
 
+    <a href="/article/hive相关学习/">
+        <h2 class="post-title">
+            
+                <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
+                <!-- <i class="fa fa-thumb-tack" style="color:#F89E8C" ></i> -->
+                <!-- <i class="fa fa-thumb-tack" style="color:#1CB7ED" ></i> -->
+                <font color=#F4711F>置顶</font>
+                <!-- <font color=#F89E8C>置顶</font>  -->
+                <!-- <font color=#1CB7ED>置顶</font>  -->
+                                 
+            Hive相关学习
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Hive相关学习
+Hive的基础概念
+
+构建在Hadoop（HDFS/MapReduce/YARN）之上的数据仓库
+		Hive的数据是存放在HDFS之上
+		Hive底层执行引擎：MapReduce/Tez/Spark
+			只需要通过一个参数就能够切换底层的执行引擎
+		Hive作业提交到YARN上运行
+	提供了HQL查询语言
+		和SQL类似，但不完全相同
+		所谓的大数据“云化”：是......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 阿豆 on
+            2015-07-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#hive" title="hive">hive</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/hive部署/">
+        <h2 class="post-title">
+            
+                <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
+                <!-- <i class="fa fa-thumb-tack" style="color:#F89E8C" ></i> -->
+                <!-- <i class="fa fa-thumb-tack" style="color:#1CB7ED" ></i> -->
+                <font color=#F4711F>置顶</font>
+                <!-- <font color=#F89E8C>置顶</font>  -->
+                <!-- <font color=#1CB7ED>置顶</font>  -->
+                                 
+            Hive部署
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Hive部署
+安装包和环境配置
+
+CDH-5.16.2
+		wget http://archive.cloudera.com/cdh5/cdh/5/hive-1.1.0-cdh5.16.2.tar.gz
+	安装
+		解压：tar -zxvf hive-1.1.0-cdh5.16.2.tar.gz -C ~/app/
+		配置环境变量：source
+			export HIVE_HOME=/h......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 阿豆 on
+            2015-07-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#hive" title="hive">hive</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/article/HDFS架构/">
         <h2 class="post-title">
             
@@ -227,7 +317,20 @@
             
         </h3>
         <div class="post-content-preview">
-            ...
+            HDFS架构
+Namenode:  主
+
+存储: 文件系统的命名空间
+a.文件的名称
+b.文件的目录结构
+c.文件的属性  权限 创建时间 副本数
+d.文件对应被切割为哪些数据块+副本数–》数据块分布在哪些DN节点上
+blockmap 当然nn节点不会持久化存储这种映射关系，
+是通过集群启动和运行是，dn会定期发送blockreport给nn，
+依次nn在内存中动态维护这种映射关系
+
+
+作用......
         </div>
     </a>
     
@@ -332,6 +435,10 @@ export PATH=$JAVA_HOME/bin:$PATH
             <a href="/tags/#hadoop" title="hadoop" rel="2">hadoop</a>
             
         
+            
+            <a href="/tags/#hive" title="hive" rel="2">hive</a>
+            
+        
     </div>
 </section>
 
@@ -383,6 +490,14 @@ export PATH=$JAVA_HOME/bin:$PATH
     <ul>
       
         <li>
+          <a href="/article/hive相关学习/">Hive相关学习</a>
+        </li>
+      
+        <li>
+          <a href="/article/hive部署/">Hive部署</a>
+        </li>
+      
+        <li>
           <a href="/article/HDFS架构/">HDFS架构</a>
         </li>
       
@@ -410,7 +525,7 @@ export PATH=$JAVA_HOME/bin:$PATH
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li></ul>
     </div>
 
         <hr>
