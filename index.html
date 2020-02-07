@@ -18,7 +18,7 @@
         
     </title>
 
-    <link rel="canonical" href="http://www.ruozedata.com/">
+    <link rel="canonical" href="http://www.github.com/exv123/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -71,7 +71,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/ruozedatahead.png') 
+            background-image: url('/img/header_img/head.png') 
             /*config*/
         
     }
@@ -134,14 +134,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -211,7 +211,7 @@
 
 <div class="post-preview">
 
-    <a href="/article/hadoop/">
+    <a href="/article/HDFS架构/">
         <h2 class="post-title">
             
                 <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
@@ -221,23 +221,60 @@
                 <!-- <font color=#F89E8C>置顶</font>  -->
                 <!-- <font color=#1CB7ED>置顶</font>  -->
                                  
-            Hadoop相关
+            HDFS架构
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            Hadoop学习
+            ...
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 阿豆 on
+            2015-07-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#hadoop" title="hadoop">hadoop</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/hadoop部署/">
+        <h2 class="post-title">
+            
+                <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
+                <!-- <i class="fa fa-thumb-tack" style="color:#F89E8C" ></i> -->
+                <!-- <i class="fa fa-thumb-tack" style="color:#1CB7ED" ></i> -->
+                <font color=#F4711F>置顶</font>
+                <!-- <font color=#F89E8C>置顶</font>  -->
+                <!-- <font color=#1CB7ED>置顶</font>  -->
+                                 
+            Hadoop部署
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Hadoop单节点部署
 Hadoop官网
-1hello world
-hadoop部署
+JAVA配置
 
-123
-
-Hadoopxxx
-Hadoop xxxx
-test
-...
+在/usr/java下解压安装包
+修正用户和用户组：chown -R root:root jdk1.8.0_45
+配置全局环境变量
+/etc/profile下添加:
+#env
+export JAVA_HOME=/usr/java/jdk1.8.0_45
+export PATH=$JAVA_HOME/bin:$PATH
+添加完成后 so......
         </div>
     </a>
     
@@ -292,7 +329,7 @@ test
     <div class="tags">
         
             
-            <a href="/tags/#hadoop" title="hadoop" rel="1">hadoop</a>
+            <a href="/tags/#hadoop" title="hadoop" rel="2">hadoop</a>
             
         
     </div>
@@ -306,11 +343,9 @@ test
     <div class="short-about">
 
         
-            <img id = "avatar_pic" src="/img/avatar/Jepson.jpg" />
+            <img id = "avatar_pic" src="/img/avatar/head.jpg" />
         
 
-        
-            <p>若泽数据，企业在职</p>
         
 
         <!-- SNS Link -->
@@ -325,7 +360,7 @@ test
 
             
                 <li>
-                    <a target="_blank"  href="https://github.com/hackeruncle">
+                    <a target="_blank"  href="https://github.com/exv123">
                         <span class="fa-stack fa-lg">
                             <i class="fa fa-circle fa-stack-2x"></i>
                             <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -348,7 +383,11 @@ test
     <ul>
       
         <li>
-          <a href="/article/hadoop/">Hadoop相关</a>
+          <a href="/article/HDFS架构/">HDFS架构</a>
+        </li>
+      
+        <li>
+          <a href="/article/hadoop部署/">Hadoop部署</a>
         </li>
       
     </ul>
@@ -371,7 +410,7 @@ test
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li></ul>
     </div>
 
         <hr>
@@ -400,7 +439,7 @@ test
 
                 
                     <li>
-                        <a target="_blank"  href="https://github.com/hackeruncle">
+                        <a target="_blank"  href="https://github.com/exv123">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -471,7 +510,7 @@ test
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async("http://www.ruozedata.com/js/jquery.tagcloud.js",function(){
+        async("http://www.github.com/exv123/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -536,7 +575,7 @@ test
 	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat -->
-<img src="http://www.ruozedata.com/img/icon_wechat.png" width="0" height="0" />
+<img src="http://www.github.com/exv123/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
