@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          HDFS架构 - 阿豆的博客
+          自定义方法解析复杂json数据 - 阿豆的博客
         
     </title>
 
-    <link rel="canonical" href="http://www.github.com/exv123/article/HDFS架构/">
+    <link rel="canonical" href="http://www.github.com/exv123/article/自定义方法解析复杂json/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                              <a class="tag" href="/tags/#mapreduce" title="mapreduce">mapreduce</a>
                             
                         </div>
-                        <h1>HDFS架构</h1>
+                        <h1>自定义方法解析复杂json数据</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 阿豆 on
-                            2015-07-11
+                            2019-07-11
                         </span>
                     </div>
                 
@@ -212,46 +212,11 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="hdfs架构">HDFS架构</h3>
-<h4 id="namenode-主">Namenode:  主</h4>
+                <h3 id="自定义解析json">自定义解析json</h3>
 <blockquote>
-<p>存储: 文件系统的命名空间<br>
-a.文件的名称<br>
-b.文件的目录结构<br>
-c.文件的属性  权限 创建时间 副本数<br>
-d.文件对应被切割为哪些数据块+副本数–》数据块分布在哪些DN节点上<br>
-blockmap 当然nn节点不会持久化存储这种映射关系，<br>
-是通过集群启动和运行是，dn会定期发送blockreport给nn，<br>
-依次nn在内存中动态维护这种映射关系</p>
+<p><strong>因为在网上找了半天都没找到满意的，之后就自己写了个函数来解析嵌套的json</strong></p>
 </blockquote>
-<blockquote>
-<p>作用:<br>
-管理文件系统的命名空间。维护文件系统树的所有文件和文件夹。<br>
-这些信息以两个文件形式永久的保存在本地磁盘上：<br>
-镜像文件fsimage<br>
-编辑日志文件editlog</p>
-</blockquote>
-<h4 id="datanode从">Datanode：从</h4>
-<blockquote>
-<p>存储: 数据块 和 数据块校验和与NN通信:<br>
-	a.每隔3s发送心跳包给 nn，我还活者<br>
-	dfs.heartbeat.interval 3<br>
-	b.每隔一定的时间发生一次 blockreport<br>
-	dfs.blockreport.intervalMsec  21600000ms=6h<br>
-	dfs.datanode.directoryscan.interval 21600s=6h</p>
-</blockquote>
-<h4 id="secondarynamenode">SecondaryNamenode</h4>
-<blockquote>
-<p>存储: fsimage+editlog<br>
-作用: 定期合并 fsimage+editlog文件作为新的fsimage，推送给NN，<br>
-简称为checkpoint 检查点<br>
-1.roll edit<br>
-2.传输 fsimage+edits<br>
-3.merge 合并<br>
-4.传输 fsimage.ckpt to nn<br>
-5.回滚 fsimage.ckpt==》fsimage<br>
-edit.new==&gt;  edit</p>
-</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试数据：&#123;"name":"小李","city":"上海","skill":[&#123;"skill_name":"hadoop","language_name":"scala"&#125;]&#125;</span></span><br><span class="line"><span class="comment"> * 测试结果：小李	上海	hadoop	scala</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>,<span class="title">Text</span>,<span class="title">Text</span>,<span class="title">NullWritable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    String text;</span><br><span class="line">    JSONObject json;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text values,Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException</span>&#123;</span><br><span class="line">        text = <span class="string">""</span>;</span><br><span class="line">        json = JSONObject.fromObject(values.toString());</span><br><span class="line">        Iterator&lt;String&gt; keys = json.keys();</span><br><span class="line">        Analysis(keys,json);</span><br><span class="line">        context.write(<span class="keyword">new</span> Text(text), NullWritable.get());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自定义解析嵌套json</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> keys JSONObject对象的key的集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> AnalysisJson JSONObject对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Analysis</span><span class="params">(Iterator&lt;String&gt; keys,JSONObject AnalysisJson)</span></span>&#123;</span><br><span class="line">        <span class="comment">//遍历JSONObject对象的所有key对应的value</span></span><br><span class="line">        <span class="keyword">while</span>(keys.hasNext())&#123;</span><br><span class="line">            String key = keys.next();</span><br><span class="line">            Object judge = AnalysisJson.get(key);</span><br><span class="line">            Iterator&lt;String&gt; jsobjkeys;</span><br><span class="line">            <span class="comment">//当key对应的value为JSONArray对象</span></span><br><span class="line">            <span class="keyword">if</span>(judge <span class="keyword">instanceof</span> JSONArray)&#123;</span><br><span class="line">                JSONArray jsonarray = JSONArray.fromObject(AnalysisJson.getString(key));</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;jsonarray.size();i++)&#123;</span><br><span class="line">                    JSONObject jsobj = jsonarray.getJSONObject(i);</span><br><span class="line">                    jsobjkeys = jsobj.keys();</span><br><span class="line">                    Analysis(jsobjkeys,jsobj);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//当key对应的value为JSONObject对象</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(judge <span class="keyword">instanceof</span> JSONObject)&#123;</span><br><span class="line">                JSONObject jsobj = JSONObject.fromObject(AnalysisJson.get(key));</span><br><span class="line">                jsobjkeys = jsobj.keys();</span><br><span class="line">                Analysis(jsobjkeys,jsobj);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//当key对应的value为值</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                text = text + AnalysisJson.getString(key) + <span class="string">"\t"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 
 
@@ -260,12 +225,12 @@ edit.new==&gt;  edit</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Hive部署/" data-toggle="tooltip" data-placement="top" title="Hive部署">&larr; Previous Post</a>
+                            <a href="/article/Mapreduce编程/" data-toggle="tooltip" data-placement="top" title="MapReduce编程">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Sqoop/" data-toggle="tooltip" data-placement="top" title="Sqoop">Next Post &rarr;</a>
+                            <a href="/article/Hadoop部署/" data-toggle="tooltip" data-placement="top" title="Hadoop部署">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -315,7 +280,7 @@ edit.new==&gt;  edit</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#hdfs架构"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">HDFS&#x67B6;&#x6784;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#namenode-主"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Namenode:  &#x4E3B;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#datanode从"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Datanode&#xFF1A;&#x4ECE;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#secondarynamenode"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">SecondaryNamenode</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#自定义解析json"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x81EA;&#x5B9A;&#x4E49;&#x89E3;&#x6790;json</span></a></li></ol>
         
         </div>
       </aside>
@@ -335,7 +300,7 @@ edit.new==&gt;  edit</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#hadoop" title="hadoop">hadoop</a>
+                          <a class="tag" href="/tags/#mapreduce" title="mapreduce">mapreduce</a>
                         
                     </div>
                 </section>

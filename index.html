@@ -71,7 +71,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/article_header/article_bg.png') 
+            background-image: url('/img/header_img/home2.png') 
             /*config*/
         
     }
@@ -134,14 +134,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -211,7 +211,43 @@
 
 <div class="post-preview">
 
-    <a href="/article/hive相关学习/">
+    <a href="/article/Mapreduce编程/">
+        <h2 class="post-title">
+            
+                <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
+                <!-- <i class="fa fa-thumb-tack" style="color:#F89E8C" ></i> -->
+                <!-- <i class="fa fa-thumb-tack" style="color:#1CB7ED" ></i> -->
+                <font color=#F4711F>置顶</font>
+                <!-- <font color=#F89E8C>置顶</font>  -->
+                <!-- <font color=#1CB7ED>置顶</font>  -->
+                                 
+            MapReduce编程
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            ...
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 阿豆 on
+            2019-07-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#mapreduce" title="mapreduce">mapreduce</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/Hive相关学习/">
         <h2 class="post-title">
             
                 <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
@@ -257,7 +293,7 @@ Hive的基础概念
 
 <div class="post-preview">
 
-    <a href="/article/hive部署/">
+    <a href="/article/Hive部署/">
         <h2 class="post-title">
             
                 <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
@@ -292,6 +328,50 @@ CDH-5.16.2
         <div class="tags">
             
               <a href="/tags/#hive" title="hive">hive</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/Sqoop/">
+        <h2 class="post-title">
+            
+                <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
+                <!-- <i class="fa fa-thumb-tack" style="color:#F89E8C" ></i> -->
+                <!-- <i class="fa fa-thumb-tack" style="color:#1CB7ED" ></i> -->
+                <font color=#F4711F>置顶</font>
+                <!-- <font color=#F89E8C>置顶</font>  -->
+                <!-- <font color=#1CB7ED>置顶</font>  -->
+                                 
+            Sqoop
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Sqoop
+Sqoop部署
+
+下载  cdh5
+		wget http://archive.cloudera.com/cdh5/cdh/5/sqoop-1.4.6-cdh5.16.2.tar.gz
+	解压
+		tar -zxvf sqoop-1.4.6-cdh5.16.2.tar.gz -C ~/app/
+	配置系统环境变量
+		export SQOOP_HOME=/home/hadoop/......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 阿豆 on
+            2015-07-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#sqoop" title="sqoop">sqoop</a>
             
         </div>
     
@@ -350,7 +430,7 @@ blockmap 当然nn节点不会持久化存储这种映射关系，
 
 <div class="post-preview">
 
-    <a href="/article/hadoop部署/">
+    <a href="/article/Hadoop部署/">
         <h2 class="post-title">
             
                 <i class="fa fa-thumb-tack" style="color:#F4711F" ></i>
@@ -388,6 +468,39 @@ export PATH=$JAVA_HOME/bin:$PATH
         <div class="tags">
             
               <a href="/tags/#hadoop" title="hadoop">hadoop</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/自定义方法解析复杂json/">
+        <h2 class="post-title">
+                                 
+            自定义方法解析复杂json数据
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            自定义解析json
+
+因为在网上找了半天都没找到满意的，之后就自己写了个函数来解析嵌套的json
+
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950/** * 测试数据：&#123;"name":"小李","city":"上海","skill":[&#123;......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 阿豆 on
+            2019-07-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#mapreduce" title="mapreduce">mapreduce</a>
             
         </div>
     
@@ -436,7 +549,15 @@ export PATH=$JAVA_HOME/bin:$PATH
             
         
             
+            <a href="/tags/#mapreduce" title="mapreduce" rel="2">mapreduce</a>
+            
+        
+            
             <a href="/tags/#hive" title="hive" rel="2">hive</a>
+            
+        
+            
+            <a href="/tags/#sqoop" title="sqoop" rel="1">sqoop</a>
             
         
     </div>
@@ -490,19 +611,23 @@ export PATH=$JAVA_HOME/bin:$PATH
     <ul>
       
         <li>
-          <a href="/article/hive相关学习/">Hive相关学习</a>
+          <a href="/article/Mapreduce编程/">MapReduce编程</a>
         </li>
       
         <li>
-          <a href="/article/hive部署/">Hive部署</a>
+          <a href="/article/自定义方法解析复杂json/">自定义方法解析复杂json数据</a>
         </li>
       
         <li>
-          <a href="/article/HDFS架构/">HDFS架构</a>
+          <a href="/article/Hive相关学习/">Hive相关学习</a>
         </li>
       
         <li>
-          <a href="/article/hadoop部署/">Hadoop部署</a>
+          <a href="/article/Hive部署/">Hive部署</a>
+        </li>
+      
+        <li>
+          <a href="/article/Sqoop/">Sqoop</a>
         </li>
       
     </ul>
@@ -525,7 +650,7 @@ export PATH=$JAVA_HOME/bin:$PATH
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li></ul>
     </div>
 
         <hr>
