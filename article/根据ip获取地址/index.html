@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Sqoop - 阿豆的博客
+          解析ip获取地址 - 阿豆的博客
         
     </title>
 
-    <link rel="canonical" href="http://www.github.com/exv123/article/Sqoop/">
+    <link rel="canonical" href="http://www.github.com/exv123/article/根据ip获取地址/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#sqoop" title="sqoop">sqoop</a>
+                              <a class="tag" href="/tags/#ip" title="ip">ip</a>
                             
                         </div>
-                        <h1>Sqoop</h1>
+                        <h1>解析ip获取地址</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 阿豆 on
-                            2015-07-11
+                            2019-07-11
                         </span>
                     </div>
                 
@@ -212,28 +212,14 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="sqoop">Sqoop</h3>
-<h4 id="sqoop部署">Sqoop部署</h4>
+                <p><a href="https://github.com/jarod/qqwry-java" target="_blank" rel="noopener">https://github.com/jarod/qqwry-java</a></p>
+<h3 id="添加maven依赖">添加Maven依赖</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;com.github.jarod&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;qqwry-java&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;0.7.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="实现">实现</h3>
 <blockquote>
-<p>下载  cdh5<br>
-		wget <a href="http://archive.cloudera.com/cdh5/cdh/5/sqoop-1.4.6-cdh5.16.2.tar.gz" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/cdh/5/sqoop-1.4.6-cdh5.16.2.tar.gz</a><br>
-	解压<br>
-		tar -zxvf sqoop-1.4.6-cdh5.16.2.tar.gz -C ~/app/<br>
-	配置系统环境变量<br>
-		export SQOOP_HOME=/home/hadoop/app/sqoop-1.4.6-cdh5.16.2<br>
-		export PATH=$SQOOP_HOME/bin:$PATH<br>
-		source<br>
-	配置文件： $SQOOP_HOME/conf/<br>
-		cp <a href="http://sqoop-env-template.sh" target="_blank" rel="noopener">sqoop-env-template.sh</a> <a href="http://sqoop-env.sh" target="_blank" rel="noopener">sqoop-env.sh</a><br>
-		export HADOOP_COMMON_HOME=/home/ruoze/app/hadoop<br>
-		export HADOOP_MAPRED_HOME=/home/ruoze/app/hadoop<br>
-		export HIVE_HOME=/home/ruoze/app/hive	<br>
-驱动包<br>
-		cp mysql-connector-java-5.1.27-bin.jar $SQOOP_HOME/lib/<br>
-JSON包放入lib下</p>
+<p>因为该git上说明的实现，对于数据没有拆分，所以自己编写了省市区拆分规则，并且区别了脏数据和外国数据</p>
 </blockquote>
-<h4 id="sqoop语法">Sqoop语法</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">列出所有数据库</span><br><span class="line">sqoop list-databases \</span><br><span class="line">--connect jdbc:mysql://hadoop001:3306 \</span><br><span class="line">--password ruozedata \</span><br><span class="line">--username root</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.github.jarod.qqwry.IPZone;</span><br><span class="line"><span class="keyword">import</span> com.github.jarod.qqwry.QQWry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ip</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] data = Files.readAllBytes(Paths.get(<span class="string">"data/qqwry.dat"</span>));</span><br><span class="line">        QQWry qqwry = <span class="keyword">new</span> QQWry(data); <span class="comment">// create QQWry with provided data</span></span><br><span class="line">        String country=<span class="string">" "</span>;  <span class="comment">//国家</span></span><br><span class="line">        String province=<span class="string">" "</span>; <span class="comment">//省</span></span><br><span class="line">        String city=<span class="string">" "</span>;     <span class="comment">//市</span></span><br><span class="line">        String area=<span class="string">" "</span>;     <span class="comment">//区、镇</span></span><br><span class="line">        String myIP = <span class="string">"202.103.192.0"</span>;</span><br><span class="line">        IPZone ipzone = qqwry.findIP(myIP);</span><br><span class="line">        String text = ipzone.getMainInfo();</span><br><span class="line">        <span class="comment">//处理特别行政区</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"澳门"</span>.equals(text)||<span class="string">"香港"</span>.equals(text))&#123;</span><br><span class="line">            country = <span class="string">"中国"</span>;</span><br><span class="line">            province = text;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//处理直辖市 北京市、天津市、上海市、重庆市</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(text.startsWith(<span class="string">"北京市"</span>)||text.startsWith(<span class="string">"天津市"</span>)||text.startsWith(<span class="string">"上海市"</span>)||text.startsWith(<span class="string">"重庆市"</span>))&#123;</span><br><span class="line">            country = <span class="string">"中国"</span>;</span><br><span class="line">            <span class="comment">//如果数据含有区</span></span><br><span class="line">            <span class="keyword">if</span>(text.length()&gt;<span class="number">3</span>)&#123;</span><br><span class="line">                province = text.substring(<span class="number">0</span>,<span class="number">3</span>);</span><br><span class="line">                city = province;</span><br><span class="line">                area = text.substring(<span class="number">3</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                province = text;</span><br><span class="line">                city = province;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//处理常规省份</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (text.contains(<span class="string">"省"</span>))&#123;</span><br><span class="line">            country = <span class="string">"中国"</span>;</span><br><span class="line">            <span class="keyword">int</span> pro = text.indexOf(<span class="string">"省"</span>)+<span class="number">1</span>;</span><br><span class="line">            province = text.substring(<span class="number">0</span>,pro);</span><br><span class="line">            <span class="comment">//如果数据含有市</span></span><br><span class="line">            <span class="keyword">if</span>(text.contains(<span class="string">"市"</span>))&#123;</span><br><span class="line">                <span class="keyword">int</span> cit = text.indexOf(<span class="string">"市"</span>)+<span class="number">1</span>;</span><br><span class="line">                city = text.substring(pro,cit);</span><br><span class="line">                <span class="comment">//如果数据含有区</span></span><br><span class="line">                area = text.length()&gt;cit ? text.substring(cit) : <span class="string">" "</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//接下来处理民族自治区 内蒙古自治区、广西壮族自治区、宁夏回族自治区、新疆维吾尔自治区、西藏自治区</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(text.startsWith(<span class="string">"广西"</span>)||text.startsWith(<span class="string">"新疆"</span>)||text.startsWith(<span class="string">"西藏"</span>)||text.startsWith(<span class="string">"宁夏"</span>)||text.startsWith(<span class="string">"内蒙古"</span>))&#123;</span><br><span class="line">            country = <span class="string">"中国"</span>;</span><br><span class="line">            <span class="keyword">if</span>(text.startsWith(<span class="string">"内蒙古"</span>))&#123;</span><br><span class="line">                province = <span class="string">"内蒙古"</span>;</span><br><span class="line">                <span class="comment">//如果数据含有市</span></span><br><span class="line">                <span class="keyword">if</span>(text.length() &gt; <span class="number">3</span>) &#123;</span><br><span class="line">                    <span class="keyword">int</span> cit = text.indexOf(<span class="string">"市"</span>)+<span class="number">1</span>;</span><br><span class="line">                    city = text.substring(<span class="number">3</span>,cit);</span><br><span class="line">                    <span class="comment">//如果数据含有区</span></span><br><span class="line">                    area = text.length()&gt;cit ? text.substring(cit) : <span class="string">" "</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                province = text.substring(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">                <span class="comment">//如果数据含有市</span></span><br><span class="line">                <span class="keyword">if</span>(text.length() &gt; <span class="number">2</span>) &#123;</span><br><span class="line">                    <span class="keyword">int</span> cit = text.indexOf(<span class="string">"市"</span>)+<span class="number">1</span>;</span><br><span class="line">                    city = text.substring(<span class="number">2</span>,cit);</span><br><span class="line">                    <span class="comment">//如果数据含有区</span></span><br><span class="line">                    area = text.length()&gt;cit ? text.substring(cit) : <span class="string">" "</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//最后处理脏数据和外国数据</span></span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            country = text;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(myIP+<span class="string">"\t"</span>+country+<span class="string">"\t"</span>+province+<span class="string">"\t"</span> +city+<span class="string">"\t"</span> + area + <span class="string">"\t"</span>  + ipzone.getSubInfo());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
 
                 <hr>
@@ -241,12 +227,12 @@ JSON包放入lib下</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/article/Hive部署/" data-toggle="tooltip" data-placement="top" title="Hive部署">&larr; Previous Post</a>
+                            <a href="/article/Mapreduce编程/" data-toggle="tooltip" data-placement="top" title="MapReduce编程">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/article/Hive相关学习/" data-toggle="tooltip" data-placement="top" title="Hive相关学习">Next Post &rarr;</a>
+                            <a href="/article/自定义方法解析复杂json/" data-toggle="tooltip" data-placement="top" title="自定义方法解析复杂json数据">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -296,7 +282,7 @@ JSON包放入lib下</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#sqoop"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Sqoop</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#sqoop部署"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Sqoop&#x90E8;&#x7F72;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#sqoop语法"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Sqoop&#x8BED;&#x6CD5;</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#添加maven依赖"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x6DFB;&#x52A0;Maven&#x4F9D;&#x8D56;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#实现"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">&#x5B9E;&#x73B0;</span></a></li></ol>
         
         </div>
       </aside>
@@ -316,7 +302,7 @@ JSON包放入lib下</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#sqoop" title="sqoop">sqoop</a>
+                          <a class="tag" href="/tags/#ip" title="ip">ip</a>
                         
                     </div>
                 </section>
